@@ -8,6 +8,6 @@ export const connectToDB = () => {
     .catch((err) => {
         console.log("cannot connect mongoDB")
         console.log(err)
-        process.exit(1) // סוגר את התוכנית שנכשלה
+        process.exit(1) 
 })
 }

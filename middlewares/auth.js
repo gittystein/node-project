@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"; // עאימות זהות
 
-//אימות משתמש
+
 export const authUser = (req, res, next) => {
     let token = req.headers["x-access-token"];
     if (!token)
@@ -15,7 +15,7 @@ export const authUser = (req, res, next) => {
 }
 
 
-//אימות מנהל
+
 export const authDirector = (req, res, next) => {
     let token = req.headers["x-access-token"];
     if (!token)

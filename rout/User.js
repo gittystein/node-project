@@ -4,8 +4,8 @@ import { authDirector } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/", userController.addUser);//עובד!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-router.post("/login", userController.enterUser);//עובד!!!!!!!!!!!!!!!!!!!!!!!!!
-router.get("/", userController.getAllUsers);//עובד!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+router.post("/", userController.addUser);
+router.post("/login", userController.enterUser);
+router.get("/", authDirector, userController.getAllUsers);
 
 export default router;

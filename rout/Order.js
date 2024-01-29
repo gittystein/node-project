@@ -4,7 +4,7 @@ import { authDirector, authUser } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.get("/", authDirector, ordersController.getAllOrders);//עובד!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+router.get("/", authDirector, ordersController.getAllOrders);
 router.post("/", authUser, ordersController.addOrder);
 router.delete("/", authDirector, authUser, ordersController.deleteOrder);
 router.get("/:id", authUser, ordersController.getAllOrdersByUser);

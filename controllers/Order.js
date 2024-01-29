@@ -8,7 +8,7 @@ export const getAllOrders = async (req, res) => {
         let allOrders = await Order.find({});
         res.status(200).json(allOrders);
     } catch (err) {
-        res.status(500).send("התרחשה תקלה");
+        res.status(500).send("samssing is not good");
     }
 }
 
@@ -32,7 +32,7 @@ export const addOrder = async (req, res) => {
     }
 
     catch (err) {
-        res.status(400).send("אין אפשרות לצע הזמנות" + err);
+        res.status(400).send("cannot made an order now" + err);
     }
 
 }
@@ -42,24 +42,24 @@ export const deleteOrder = async (req, res) => {
     let { ordId } = req.params;
 
     if (!mongoose.isValidObjectId(ordId))
-        return res.status(400).send("לא קיים מספר הזמנה כזה");
+        return res.status(400).send("ther is not do order with this id");
 
     try {
         let deletedOrder = await Order.findById(ordId);
         if (!deleteOrder)
-            return res.status(404).send("לא מוצא המנה כזו")
+            return res.status(404).send("undifind this order")
         if (deletedOrder.orderOutToWay == true)
-            return res.status(400).send("המוצר יצא לשליחה");
+            return res.status(400).send("the order out to ship");
         if (req.tryUser._id == orderToDelete.userOrderId || req.tryUser.role == "MANAGER")
             deletedOrder = await Order.findByIdAndDeleted(ordId);
         else
-            return res.status(404).send("לא הצלחנו למחוק הזמנה");
+            return res.status(404).send("cannot delete order");
 
         return res.json(deletedOrder);
     }
 
     catch (err) {
-        res.status(500).send("התרחשה תקלה");
+        res.status(500).send("samssing is wrong");
     }
 }
 
@@ -71,7 +71,7 @@ export const getAllOrdersByUser = async (req, res) => {
         res.json(allOrders);
     }
     catch (err) {
-        res.status(500).send("התרחשה תקלה");
+        res.status(500).send("samsing is not good");
     }
 
 }
@@ -99,14 +99,15 @@ export const updateOrderOut = async (req, res) => {
     let { ordId } = req.params;
 
     if (!mongoose.isValidObjectId(ordId))
-        return res.status(400).send("לא קיים מספר הזמנה כזה");
+        return res.status(400).send("no found an order with this id");
     try {
         let orderToUpdate = await Order.findById(ordId);
         if (!orderToUpdate)
-            return res.status(404).send("אין הזמנה עם קוד כזה");
-        orderToUpdate.orderOutToWay = true;
+            return res.status(404).send("not found this order");
+        let updatedOrder = await Order.findOneAndUpdate({ _id: id }, { orderOutToWay: true })
+        res.status(200).json(updatedOrder);
     }
     catch (err) {
-        res.status(500).send("התרחשה תקלה");
+        res.status(500).send("samsing is wrong");
     }
 }

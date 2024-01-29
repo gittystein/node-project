@@ -4,24 +4,24 @@ import { generateToken } from "../config/jwt.js";
 
 export const addUser = async (req, res) => {
     try {
-        let { name, email, password, role } = req.body; //משתנים המאותחלים למה שהתקבל מהמשתמש
+        let { name, email, password, role } = req.body;
         if (!name || !email || !password)
-            return res.status(404).send("אחד הפרמטרים חסר, שם מייל או סיסמה")
+            return res.status(404).send("somssing faild email or password");
 
-        let hashPassword = await bcyript.hash(password, 15); //הצפנת הסיסמה עי פונקציית הש
+        let hashPassword = await bcyript.hash(password, 15); 
 
-        let newUser = new User({ name, password: hashPassword, email, role });  // יצירת משתמש חדש עם הסיסמה המוצפנת
-        await newUser.save(); //המתנה עד לשמירת המשתמש
+        let newUser = new User({ name, password: hashPassword, email, role });  
+        await newUser.save(); 
 
-        let { _id, name: u, email: e, role: r } = newUser;//שליפת הנתונים של המשתמש החדש
+        let { _id, name: u, email: e, role: r } = newUser;
 
-        let token = generateToken(newUser);//שליפת הסיסמה המוצפנת
+        let token = generateToken(newUser);
 
-        res.json({ _id, name: u, token, email: e });//החזרת הנתונים למשתמש
+        res.json({ _id, name: u, token, email: e });
 
     }
     catch (err) {
-        res.status(500).send("נוצרה שגיאה" + err)
+        res.status(500).send("somsing is wrong " + err)
     }
 }
 
@@ -30,11 +30,11 @@ export const enterUser = async (req, res) => {
         let { name, password } = req.body;
 
         if (!name || !password)
-            return res.status(400).send("חסר שם או סיסמה")
+            return res.status(400).send("name or password faild");
 
         let loggedInUser = await User.findOne({ name });
         if (!loggedInUser)
-            return res.status(404).send("לא קיים משתמש עם פרטים אלו")
+            return res.status(404).send("not found this user")
 
         let { name: n, _id, email, role } = loggedInUser;
 
@@ -44,18 +44,18 @@ export const enterUser = async (req, res) => {
 
     }
     catch (err) {
-        res.status(500).send("התרחשה שגיאה")
+        res.status(500).send("somsing is wrong")
     }
 }
 
 export const getAllUsers = async (req, res) => {
     try {
-        let allUsers = await User.find({}, "-password")//יחזיר בלי שדה סיסמה
+        let allUsers = await User.find({}, "-password")
         res.json(allUsers);
     }
-    
+
     catch (err) {
-        res.status(500).send("התרחשה תקלה");
+        res.status(500).send("somssing is wrong");
     }
 }
 
