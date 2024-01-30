@@ -22,6 +22,8 @@ export const Order = mongoose.model("order", orderSchema);
 
 export const orderValidator = (_ordToValidator) => {
     let OrderJoi = Joi.object({
+
+        
         ordAddress: Joi.string().min(10).max(30),
         userOrderId: Joi.string()
     })
