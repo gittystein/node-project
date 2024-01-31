@@ -9,25 +9,25 @@ import userRout from "./rout/User.js";
 
 //{!defoult}
 
-config(); // .env הדף מכיר את  
+config(); 
 
-connectToDB(); // DB חיבור ל 
+connectToDB(); 
 
 //const express = require("express");
 
-const app = express();//יצירה
+const app = express();
 
-app.use(express.json()); // מפעיל פונקציה
+app.use(express.json()); 
 
-app.use(cors()); // middleware בניית ה 
+app.use(cors({ origin: 'https://shopcore.onrender.com' })); 
 
-app.use(errHandling); // middleware הפעלת ה 
+app.use(errHandling); 
 
-app.use("/api/order", orderRout);         //
-app.use("/api/product", productsRout);   // routs הפעלת ה  
-app.use("/api/user", userRout);           //
+app.use("/api/order", orderRout);         
+app.use("/api/product", productsRout);    
+app.use("/api/user", userRout);           
 
-let port = process.env.PORT || 3000; // מיקום לריצה
+let port = process.env.PORT || 3000; 
 
 app.listen(port, function () {
     console.log(`listening on port ${port}`);
